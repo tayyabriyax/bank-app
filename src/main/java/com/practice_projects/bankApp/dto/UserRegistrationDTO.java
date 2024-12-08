@@ -1,57 +1,32 @@
-package com.practice_projects.bankApp.entity;
+package com.practice_projects.bankApp.dto;
 
 import com.practice_projects.bankApp.enumeration.AccountTypeEnum;
 import com.practice_projects.bankApp.enumeration.CurrencyEnum;
 import com.practice_projects.bankApp.enumeration.GenderEnum;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "user")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class UserRegistrationDTO {
 
-    @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-    @Column(name = "gender")
     private GenderEnum gender;
 
-    @Column(name = "phone_no")
     private String phoneNo;
 
-    @Column(name = "address")
     private String address;
 
-    @Column(name = "national_id")
     private String nationalId;
 
-    @Column(name = "account_type")
     private AccountTypeEnum accountType;
 
-    @Column(name = "currency_type")
     private CurrencyEnum currencyType;
 
-    @Column(name = "account_no")
     private String accountNo;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getFullName() {
         return fullName;
