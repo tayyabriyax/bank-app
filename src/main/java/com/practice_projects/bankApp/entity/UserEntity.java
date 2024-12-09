@@ -5,6 +5,8 @@ import com.practice_projects.bankApp.enumeration.CurrencyEnum;
 import com.practice_projects.bankApp.enumeration.GenderEnum;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -44,6 +46,9 @@ public class UserEntity {
 
     @Column(name = "account_no")
     private String accountNo;
+
+    @Column(name = "balance")
+    private BigDecimal balance;
 
     public Integer getId() {
         return id;
@@ -139,5 +144,30 @@ public class UserEntity {
 
     public void setAccountNo(String accountNo) {
         this.accountNo = accountNo;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void debit(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount to debit must be positive");
+        }
+        if (balance.compareTo(amount) < 0) {
+            throw new IllegalStateException("Insufficient funds");
+        }
+        this.balance = this.balance.subtract(amount);
+    }
+
+    public void credit(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount to credit must be positive");
+        }
+        this.balance = this.balance.add(amount);
     }
 }

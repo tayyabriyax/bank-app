@@ -1,5 +1,6 @@
 package com.practice_projects.bankApp.controller;
 
+import com.practice_projects.bankApp.dto.UserLoginDTO;
 import com.practice_projects.bankApp.dto.UserRegistrationDTO;
 import com.practice_projects.bankApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,19 @@ public class PublicController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("register-user")
+    @PostMapping("register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDTO newUser){
         try{
             return new ResponseEntity<>(userService.saveUser(newUser), HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<?> registerUser(@RequestBody UserLoginDTO user){
+        try{
+            return new ResponseEntity<>(userService.loginUser(user), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
         }
